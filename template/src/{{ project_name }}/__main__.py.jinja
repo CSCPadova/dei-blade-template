@@ -1,5 +1,5 @@
 import sys
-from {{ project_name }} import infer
 
-if __name__ == "__main__":
-    sys.exit(infer())
+from {{ project_name }}.infer import infer
+
+sys.exit(infer())
