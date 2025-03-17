@@ -30,28 +30,28 @@ _message_after_copy: |
        $ make install
        $ make activate
 
-_subdirectory: blade
+_subdirectory: template
 
 project_name:
     type: str
     help: What is your project name?
-    default: my-super-project
+    placeholder: my-super-project
     validator: >-
-        {% if not (project_name | regex_search('^[a-z][a-z0-9\-]+$')) %}
+        {% if not (project_name | regex_search('^[a-z][a-z0-9\_]+$')) %}
         project_name must start with a letter, followed one or more letters, digits or dashes all lowercase.
         {% endif %}
 
 project_description:
     type: str
     help: What is your project description?
-    default: A deep learning project
+    placeholder: A deep learning project
 
 python_version:
     type: str
     help: What Python version do you want to use?
     default: 3.10
     validator: >-
-        {% if not (python_version | regex_search('^3\.[6-9]+$')) %}
+        {% if not (python_version | regex_search('^3\.([1-9]\d*)$')) %}
         python_version must be a valid Python version.
         {% endif %}
 
@@ -64,8 +64,7 @@ author_email:
     type: str
     help: What is the author's email?
     placeholder: "mario@rossi.com"
-    default: "example@example.com"
     validator: >-
-        {% if not (email | regex_search('^[a-z0-9\.\-]+@[a-z0-9\-]+\.[a-z0-9\-\.]+$')) %}
+        {% if not (author_email | regex_search('^[a-z0-9\.\-]+@[a-z0-9\-]+\.[a-z0-9\-\.]+$')) %}
         email must be a valid email address.
         {% endif %}
