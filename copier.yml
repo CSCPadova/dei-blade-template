@@ -46,20 +46,6 @@ project_description:
     help: What is your project description?
     placeholder: A deep learning project
 
-python_version:
-    type: str
-    help: What Python version do you want to use?
-    default: 3.12
-    validator: >-
-        {% if not (python_version | regex_search('^3\.([1-9]\d*)$')) %}
-        python_version must be a valid Python version.
-        {% endif %}
-
-gpu_support:
-    type: bool
-    help: Do you want to enable GPU support?
-    default: false
-
 author_name:
     type: str
     help: Who is the author?

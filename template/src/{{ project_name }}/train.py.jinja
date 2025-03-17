@@ -1,0 +1,40 @@
+import os
+import lightning as L
+from omegaconf import DictConfig
+import hydra
+from {{ project_name }}.model import Encoder, Decoder, VAE
+from {{ project_name }}.dataloader import MNISTDataModule
+from lightning.pytorch.callbacks import EarlyStopping
+from lightning.pytorch.loggers import TensorBoardLogger
+
+
+@hydra.main(version_base=None, config_path="conf", config_name="config")
+def train(cfg: DictConfig) -> int:
+    logger = TensorBoardLogger("log", name="autoencoder")
+
+    # model
+    autoencoder = VAE(Encoder(3), Decoder(3), 3, cfg.lr)
+
+    data_module = MNISTDataModule(
+        data_dir=cfg.data_dir,
+        batch_size=cfg.batch_size,
+        num_workers=cfg.num_workers,
+    )
+
+    # train model
+    trainer = L.Trainer(
+        logger=logger,
+        accelerator=cfg.accelerator,
+        default_root_dir="log",
+        min_epochs=cfg.min_epochs,
+        max_epochs=cfg.max_epochs,
+        callbacks=[EarlyStopping(monitor="val_loss")],
+    )
+    trainer.fit(autoencoder, data_module)
+    trainer.validate(autoencoder, data_module)
+
+    return os.EX_OK
+
+
+if __name__ == "__main__":
+    train()

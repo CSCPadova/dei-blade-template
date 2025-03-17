@@ -1,0 +1,8 @@
+data_dir: data
+batch_size: 64
+num_workers: 4
+
+accelerator: gpu
+min_epochs: 1
+max_epochs: 5
+lr: 0.001
