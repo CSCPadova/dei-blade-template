@@ -13,7 +13,7 @@ _exclude:
 _tasks:
     - "git init"
     - "git add *"
-    - "git add .copier-answers.yml .editorconfig .gitignore .pre-commit-config.yaml"
+    - "git add .copier-answers.yml .editorconfig .gitignore .pre-commit-config.yaml .gitattributes .python-version"
     - "git commit -m 'Initial commit'"
 
 _message_after_copy: |
