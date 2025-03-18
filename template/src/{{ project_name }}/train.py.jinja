@@ -10,24 +10,24 @@ from lightning.pytorch.loggers import TensorBoardLogger
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def train(cfg: DictConfig) -> int:
-    logger = TensorBoardLogger("log", name="autoencoder")
+    logger = TensorBoardLogger(cfg.data.logs_dir, name="autoencoder")
 
     # model
-    autoencoder = VAE(Encoder(3), Decoder(3), 3, cfg.lr)
+    autoencoder = VAE(cfg.data.latent_dim, cfg.optim.lr)
 
     data_module = MNISTDataModule(
-        data_dir=cfg.data_dir,
-        batch_size=cfg.batch_size,
-        num_workers=cfg.num_workers,
+        data_dir=cfg.data.data_dir,
+        batch_size=cfg.data.batch_size,
+        num_workers=cfg.data.num_workers,
     )
 
     # train model
     trainer = L.Trainer(
         logger=logger,
-        accelerator=cfg.accelerator,
-        default_root_dir="log",
-        min_epochs=cfg.min_epochs,
-        max_epochs=cfg.max_epochs,
+        accelerator=cfg.train.accelerator,
+        default_root_dir=cfg.data.logs_dir,
+        min_epochs=1,
+        max_epochs=cfg.train.epochs,
         callbacks=[EarlyStopping(monitor="val_loss")],
     )
     trainer.fit(autoencoder, data_module)

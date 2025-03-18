@@ -1,8 +1,13 @@
-data_dir: data
-batch_size: 64
-num_workers: 4
+data:
+    data_dir: data
+    logs_dir: logs
+    batch_size: 64
+    num_workers: 4
+    latent_dim: 3
 
-accelerator: gpu
-min_epochs: 1
-max_epochs: 5
-lr: 0.001
+train:
+    accelerator: gpu
+    epochs: 5
+
+optim:
+    lr: 0.001

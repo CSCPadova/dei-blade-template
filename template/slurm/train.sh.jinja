@@ -8,6 +8,6 @@
 #SBATCH --ntasks 2
 #SBATCH --partition allgroups
 #SBATCH --mem 10G
-#SBATCH --gres=gpu
+#SBATCH --gres=gpu:rtx
 
 srun ~/.local/bin/uv run train

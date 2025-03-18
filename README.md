@@ -9,7 +9,7 @@ A project template to run experiments on the DEI's Blade cluster
 
 1. Install copier: `pipx install copier`
 2. Copy this template: `copier copy gh:CSCPadova/dei-blade-template your-project-name --trust`
-3. Follow the instructions in the generated README.md file
+3. Personalize the project as you want
 
 ## Project Structure
 

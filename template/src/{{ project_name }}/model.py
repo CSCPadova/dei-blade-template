@@ -33,12 +33,12 @@ class Decoder(nn.Module):
 
 class VAE(L.LightningModule):
     def __init__(
-        self, encoder: nn.Module, decoder: nn.Module, latent_dim: int, lr: float = 1e-3
+        self, latent_dim: int, lr: float = 1e-3, encoder: nn.Module = None, decoder: nn.Module = None,
     ):
         super().__init__()
         self.lr = lr
-        self.encoder = encoder
-        self.decoder = decoder
+        self.encoder = Encoder(latent_dim) if encoder is None else encoder
+        self.decoder = Decoder(latent_dim) if decoder is None else decoder
         self.latent_dim = latent_dim
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau
 
