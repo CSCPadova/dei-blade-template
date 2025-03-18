@@ -28,7 +28,7 @@ _message_after_copy: |
     2. Start the development environment:
 
        $ make install
-       $ make activate
+       $ make train
 
 _subdirectory: template
 
