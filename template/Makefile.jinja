@@ -29,9 +29,9 @@ install: ## Install the project dependencies with uv
 	$(UV) sync
 
 multirun: ## Run many experiments on the cluster using slurm.
-	sbatch slurm/multirun.sh
+	bash slurm/multirun.sh
 
 train: ## Train the model using slurm.
 	sbatch slurm/train.sh
 
-.PHONY: help, install, train
+.PHONY: help, install, multirun, train

@@ -4,13 +4,13 @@ from dataclasses import dataclass
 class Data:
     data_dir: str
     logs_dir: str
-    batch_size: int
     num_workers: int
     latent_dim: int
 
 @dataclass
 class Train:
     accelerator: str
+    batch_size: int
     epochs: int
 
 @dataclass
