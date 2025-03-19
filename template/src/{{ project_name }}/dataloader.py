@@ -5,6 +5,21 @@ from torchvision import datasets
 from torch.utils.data import DataLoader
 import lightning as L
 
+# this code is needed to avoid SSL error when downloading MNIST dataset
+# see https://github.com/tensorflow/tensorflow/issues/33285
+# remove it if you are not using MNIST dataset
+import requests
+requests.packages.urllib3.disable_warnings()
+import ssl
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    # Legacy Python that doesn't verify HTTPS certificates by default
+    pass
+else:
+    # Handle target environment that doesn't support HTTPS verification
+    ssl._create_default_https_context = _create_unverified_https_context
 
 class MNISTDataModule(L.LightningDataModule):
     def __init__(
