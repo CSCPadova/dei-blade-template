@@ -33,7 +33,11 @@ class Decoder(nn.Module):
 
 class VAE(L.LightningModule):
     def __init__(
-        self, latent_dim: int, lr: float = 1e-3, encoder: nn.Module = None, decoder: nn.Module = None,
+        self,
+        latent_dim: int,
+        lr: float = 1e-3,
+        encoder: nn.Module = None,
+        decoder: nn.Module = None,
     ):
         super().__init__()
         self.lr = lr
@@ -43,7 +47,11 @@ class VAE(L.LightningModule):
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau
 
     def reparameterize(self, mu: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
-        """Applica la reparametrizzazione z = mu + sigma * epsilon"""
+        r"""Applica la reparametrizzazione:
+
+        .. math::
+            z = \mu + \sigma * \epsilon
+        """
         std = torch.exp(0.5 * logvar)  # Calcola la deviazione standard
         eps = torch.randn_like(std)  # Sample casuale N(0,1)
         return mu + std * eps  # Sample z dalla distribuzione

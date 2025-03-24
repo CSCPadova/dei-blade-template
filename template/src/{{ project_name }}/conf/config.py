@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Data:
     data_dir: str
@@ -7,15 +8,18 @@ class Data:
     num_workers: int
     latent_dim: int
 
+
 @dataclass
 class Train:
     accelerator: str
     batch_size: int
     epochs: int
 
+
 @dataclass
 class Optim:
     lr: float
+
 
 @dataclass
 class Config:
